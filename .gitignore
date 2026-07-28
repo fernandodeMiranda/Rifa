@@ -1,0 +1,7 @@
+.env
+node_modules/
+vendor/
+storage/logs/*.log
+public/uploads/comprovantes/*
+!public/uploads/comprovantes/.gitkeep
+public/assets/css/app.css
