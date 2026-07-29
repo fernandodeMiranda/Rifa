@@ -49,7 +49,6 @@ CREATE TABLE IF NOT EXISTS rifas (
     preco_numero          DECIMAL(10, 2)  NOT NULL,
     numero_inicial        INT UNSIGNED    NOT NULL DEFAULT 0,
     numero_final          INT UNSIGNED    NOT NULL,
-    quantidade_numeros    INT UNSIGNED    GENERATED ALWAYS AS (numero_final - numero_inicial + 1) STORED,
     data_sorteio          DATETIME        NOT NULL,
     status                ENUM('rascunho', 'publicada', 'encerrada', 'cancelada') NOT NULL DEFAULT 'rascunho',
     publicada_em          DATETIME        NULL,
@@ -162,8 +161,10 @@ CREATE TABLE IF NOT EXISTS logs_auditoria (
     acao                  VARCHAR(100)    NOT NULL,
     entidade               VARCHAR(50)     NOT NULL,
     entidade_id            BIGINT UNSIGNED NULL,
-    dados_anteriores       JSON            NULL,
-    dados_novos            JSON            NULL,
+    -- LONGTEXT em vez de JSON: algumas hospedagens compartilhadas (ex.: InfinityFree)
+    -- restringem o CHECK/GENERATED interno que o tipo JSON usa no MariaDB.
+    dados_anteriores       LONGTEXT        NULL,
+    dados_novos            LONGTEXT        NULL,
     criado_em              TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_logs_auditoria_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE SET NULL ON UPDATE CASCADE,
     KEY idx_logs_auditoria_entidade (entidade, entidade_id),
