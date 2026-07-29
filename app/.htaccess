@@ -1,0 +1,9 @@
+# Bloqueia acesso web direto a esta pasta, caso ela acabe ficando
+# dentro do document root em alguma hospedagem compartilhada.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+</IfModule>

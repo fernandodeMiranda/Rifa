@@ -27,6 +27,9 @@ final class ReservaService
             throw new \RuntimeException('Selecione ao menos um número para reservar.');
         }
 
+        // Garante que reservas vencidas sejam liberadas mesmo sem depender do cron (RN02).
+        $this->expirarReservasVencidas();
+
         $rifa = $this->rifas->buscarPorId($rifaId);
         if (!$rifa || $rifa->status !== 'publicada') {
             throw new \RuntimeException('Rifa indisponível para venda.');
