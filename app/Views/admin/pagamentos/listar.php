@@ -1,6 +1,6 @@
 <h1 class="text-2xl font-bold mb-6">Pagamentos pendentes</h1>
 
-<div class="bg-white rounded-lg shadow divide-y">
+<div class="bg-white rounded-lg shadow divide-y divide-gray-300">
     <?php foreach ($pendentes as $comprovante): ?>
         <div class="p-4 flex items-center justify-between text-sm">
             <div>

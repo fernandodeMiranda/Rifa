@@ -5,7 +5,7 @@
     </a>
 </div>
 
-<div class="bg-white rounded-lg shadow divide-y">
+<div class="bg-white rounded-lg shadow divide-y divide-gray-300">
     <?php foreach ($rifas as $rifa): ?>
         <div class="p-4 flex items-center justify-between text-sm">
             <div>
