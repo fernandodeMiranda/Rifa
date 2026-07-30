@@ -8,7 +8,14 @@
 require_once __DIR__ . '/Core/Env.php';
 require_once __DIR__ . '/Core/Autoloader.php';
 
-Env::load(__DIR__ . '/../.env');
+// Procura .env em dois locais possíveis:
+// 1. Um nível acima de app/ (layout: pasta irma)
+// 2. No mesmo nível de app/ dentro de document root (layout: pasta unica)
+$envPath = __DIR__ . '/../.env';
+if (!file_exists($envPath)) {
+    $envPath = __DIR__ . '/.env';
+}
+Env::load($envPath);
 Autoloader::register(__DIR__);
 
 $config = require __DIR__ . '/Config/config.php';
