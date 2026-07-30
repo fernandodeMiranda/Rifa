@@ -13,7 +13,7 @@ $usuario = Session::usuarioLogado();
     <title><?= $titulo ?? 'Sistema de Rifa' ?></title>
     <link rel="stylesheet" href="/assets/css/app.css">
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+<body class="bg-gray-200 text-gray-800 min-h-screen flex flex-col">
 
     <header class="bg-white shadow-sm">
         <nav class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
