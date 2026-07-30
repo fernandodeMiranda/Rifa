@@ -13,7 +13,7 @@ $usuario = Session::usuarioLogado();
     <title><?= $titulo ?? 'Painel Administrativo' ?> — Rifa</title>
     <link rel="stylesheet" href="/assets/css/app.css">
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen flex">
+<body class="bg-gray-200 text-gray-800 min-h-screen flex">
 
     <aside class="w-56 bg-gray-900 text-gray-200 flex flex-col">
         <div class="px-4 py-4 font-bold text-lg border-b border-gray-800">Painel</div>
