@@ -14,6 +14,9 @@
         </button>
     </form>
     <p class="text-sm text-center mt-4">
-        Não tem conta? <a href="/cadastro" class="text-indigo-600">Cadastre-se</a>
+        Não tem conta? <a href="/cadastro" class="text-indigo-600 hover:underline">Cadastre-se</a>
+    </p>
+    <p class="text-sm text-center mt-2">
+        <a href="/esqueci-senha" class="text-indigo-600 hover:underline">Esqueci minha senha</a>
     </p>
 </section>

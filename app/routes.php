@@ -14,6 +14,7 @@ use App\Controllers\Admin\UsuarioController;
 use App\Controllers\Participante\AuthController;
 use App\Controllers\Participante\ComprovanteController;
 use App\Controllers\Participante\ReservaController;
+use App\Controllers\Participante\ResetSenhaController;
 use App\Controllers\Participante\RifaController;
 use App\Middlewares\AdminMiddleware;
 use App\Middlewares\AuthMiddleware;
@@ -27,6 +28,11 @@ $router->post('/cadastro', [AuthController::class, 'cadastrar']);
 $router->get('/login', [AuthController::class, 'formLogin']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->get('/logout', [AuthController::class, 'logout']);
+
+$router->get('/esqueci-senha', [ResetSenhaController::class, 'formSolicitar']);
+$router->post('/esqueci-senha', [ResetSenhaController::class, 'solicitar']);
+$router->get('/redefinir-senha', [ResetSenhaController::class, 'formRedefinir']);
+$router->post('/redefinir-senha', [ResetSenhaController::class, 'redefinir']);
 
 $router->get('/rifas', [RifaController::class, 'index']);
 $router->get('/rifas/{id}', [RifaController::class, 'show']);

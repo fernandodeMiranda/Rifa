@@ -171,4 +171,20 @@ CREATE TABLE IF NOT EXISTS logs_auditoria (
     KEY idx_logs_auditoria_usuario (usuario_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ---------------------------------------------------------------------
+-- reset_senhas
+-- Tokens temporários para reset de senha (expiram em 1 hora).
+-- RN09 - Reset de senha é válido apenas 1 hora após solicitação.
+-- ---------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS reset_senhas (
+    id                    BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id            BIGINT UNSIGNED NOT NULL,
+    token                 VARCHAR(255)    NOT NULL UNIQUE,
+    expira_em             DATETIME        NOT NULL,
+    criado_em             TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_reset_senhas_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    KEY idx_reset_senhas_token (token),
+    KEY idx_reset_senhas_expira (expira_em)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;
