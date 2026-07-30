@@ -11,7 +11,7 @@ final class ResetSenhaRepository
 
     public function __construct()
     {
-        $this->db = Database::getInstance();
+        $this->db = Database::connection();
     }
 
     public function criar(ResetSenha $reset): int
