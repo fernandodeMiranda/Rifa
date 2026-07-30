@@ -8,7 +8,7 @@
         </div>
         <div>
             <label class="block text-sm mb-1">Valor pago (opcional)</label>
-            <input type="number" step="0.01" name="valor_informado" class="w-full border rounded px-3 py-2">
+            <input type="number" step="0.01" name="valor_informado" class="w-full border border-gray-300 rounded px-3 py-2">
         </div>
         <button type="submit" class="w-full bg-indigo-600 text-white rounded py-2 font-medium hover:bg-indigo-700">
             Enviar comprovante
