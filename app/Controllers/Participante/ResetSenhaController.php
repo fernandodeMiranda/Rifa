@@ -20,28 +20,24 @@ final class ResetSenhaController extends Controller
 
     public function solicitar(): void
     {
-        try {
-            $email = $this->input('email');
+        $email = $this->input('email');
 
-            if (empty($email)) {
-                Flash::erro('Preencha o e-mail.');
-                $this->redirect('/esqueci-senha');
-                return;
-            }
-
-            $token = $this->resetService->solicitarReset($email);
-
-            // Em produção, enviar o token por email
-            // Por enquanto, exibe o link de reset (apenas para teste)
-            Flash::sucesso('Verifique seu e-mail para redefinir a senha.');
-            $this->render('participante/reset-senha/link-enviado', [
-                'token' => $token,
-                'email' => $email,
-            ], layout: 'app');
-        } catch (\InvalidArgumentException $e) {
-            Flash::erro($e->getMessage());
+        if (empty($email)) {
+            Flash::erro('Preencha o e-mail.');
             $this->redirect('/esqueci-senha');
+            return;
         }
+
+        try {
+            // Mesma mensagem independentemente do e-mail existir ou não,
+            // para não revelar quais e-mails estão cadastrados.
+            $this->resetService->solicitarReset($email);
+            Flash::sucesso('Se o e-mail estiver cadastrado, você receberá um link para redefinir a senha em instantes.');
+        } catch (\Throwable) {
+            Flash::erro('Não foi possível enviar o e-mail agora. Tente novamente mais tarde.');
+        }
+
+        $this->redirect('/login');
     }
 
     public function formRedefinir(): void

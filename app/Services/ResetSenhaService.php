@@ -10,19 +10,22 @@ final class ResetSenhaService
 {
     private ResetSenhaRepository $resets;
     private UsuarioRepository $usuarios;
+    private EmailService $email;
 
     public function __construct()
     {
         $this->resets = new ResetSenhaRepository();
         $this->usuarios = new UsuarioRepository();
+        $this->email = new EmailService();
     }
 
-    public function solicitarReset(string $email): string
+    public function solicitarReset(string $email): void
     {
         $usuario = $this->usuarios->buscarPorEmail($email);
 
         if (!$usuario) {
-            throw new \InvalidArgumentException('E-mail não encontrado.');
+            // Não revela se o e-mail existe ou não (evita enumeração de usuários).
+            return;
         }
 
         // Apaga resets anteriores do mesmo usuário
@@ -43,7 +46,15 @@ final class ResetSenhaService
 
         $this->resets->criar($reset);
 
-        return $token;
+        $config = require __DIR__ . '/../Config/config.php';
+        $link = rtrim($config['app_url'], '/') . '/redefinir-senha?token=' . $token;
+
+        $corpo = "<p>Olá, {$usuario->nome}!</p>"
+            . "<p>Recebemos uma solicitação para redefinir sua senha.</p>"
+            . "<p><a href=\"{$link}\">Clique aqui para redefinir sua senha</a></p>"
+            . "<p>Este link é válido por 1 hora. Se você não solicitou isso, ignore este e-mail.</p>";
+
+        $this->email->enviar($usuario->email, $usuario->nome, 'Redefinição de senha', $corpo);
     }
 
     public function validarToken(string $token): ?ResetSenha
