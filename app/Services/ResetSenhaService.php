@@ -8,10 +8,13 @@ use App\Repositories\UsuarioRepository;
 
 final class ResetSenhaService
 {
-    public function __construct(
-        private ResetSenhaRepository $resets = new ResetSenhaRepository(),
-        private UsuarioRepository $usuarios = new UsuarioRepository(),
-    ) {
+    private ResetSenhaRepository $resets;
+    private UsuarioRepository $usuarios;
+
+    public function __construct()
+    {
+        $this->resets = new ResetSenhaRepository();
+        $this->usuarios = new UsuarioRepository();
     }
 
     public function solicitarReset(string $email): string

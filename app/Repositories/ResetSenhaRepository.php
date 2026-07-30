@@ -7,9 +7,11 @@ use App\Models\ResetSenha;
 
 final class ResetSenhaRepository
 {
-    public function __construct(
-        private \PDO $db = Database::getInstance()
-    ) {
+    private \PDO $db;
+
+    public function __construct()
+    {
+        $this->db = Database::getInstance();
     }
 
     public function criar(ResetSenha $reset): int
